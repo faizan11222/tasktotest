@@ -1,0 +1,23 @@
+/* Css for Entry Point */
+
+.entry-point-parent{
+  border: 2px black solid;
+}
+.dropdown-entry{
+  width: 48%;
+}
+.input-entry{
+  width: 48%;
+}
+
+/* Css for Exit Point */
+
+.exit-point-parent{
+  border: 2px black solid;
+}
+.dropdown-exit{
+  width: 100%;
+}
+.input-exit{
+  width: 100%;
+}
