@@ -5,7 +5,7 @@ function EntryPoint() {
   const [formValue, setFormValue] = useState({
     "entryPoint": "",
     "numberPlate": "",
-    "date-time": "",
+    "dateTime": "",
     // "time": Date()
   });
 
@@ -19,7 +19,7 @@ function EntryPoint() {
     setFormValue({
       "entryPoint": "",
       "numberPlate": "",
-      "date-time": "",
+      "dateTime": "",
       // "time": Date()
     })
   }
@@ -34,19 +34,17 @@ function EntryPoint() {
   const [formValue2, setFormValue2] = useState({
     "exitPoint": "",
     "numberPlateExit": "",
-    "date-time": ""
+    "dateTime": ""
   });
 
   const [entryPointKm, setentryPointKm] = useState();
 
   const [exitPointKm, setexitPointKm] = useState();
 
-  const [numberPlate, setnumberPlate] = useState()
 
   useEffect(() => {
     setentryPointKm(formValue['entryPoint'])
     setexitPointKm(formValue2['exit-point'])
-    setnumberPlate(formValue['numberPlate'])
 
   }, []);
 
@@ -77,18 +75,24 @@ function EntryPoint() {
     const totelKmTraveledRatef = satSunRate * kmtraveled + entryRate;
 
 
-    var dateObj = new Date();
-    var month = dateObj.getUTCMonth() + 1; //months from 1-12
-    var dayy = dateObj.getUTCDate();
+    var month = new Date(filterData[0].dateTime).getMonth() + 1; //months from 1-12
+    var dayy = new Date(filterData[0].dateTime).getDate();
     var newdate = 0;
     newdate = month + "/" + dayy;
+
+    console.log(newdate)
 
 
 
 
     //=================================Recognizing Day====================================
-    const today = new Date();
-    const day = today.getDay()
+    const day = new Date(filterData[0].dateTime).getDay();
+
+    const numberPlate = filterData[0].numberPlate;
+
+
+
+
     if (numberPlate % 2 === 0 && day === 1 || day === 3) {
       if (newdate === "3/23" || newdate === "8/14" || newdate === "12/25") {
         Discount = 50 / 100 * totelKmTraveledRate;
@@ -105,18 +109,18 @@ function EntryPoint() {
       if (newdate === "3/23" || newdate === "8/14" || newdate === "12/25") {
         Discount = 50 / 100 * totelKmTraveledRate;
         total = totelKmTraveledRate - Discount;
-        console.log("50% discount of internationsal holiday is: " + total);
+        console.log("50% discount of international holiday is: " + total);
       } else {
         Discount = 10 / 100 * totelKmTraveledRate;
         total = totelKmTraveledRate - Discount;
-        console.log("With 10% on Tuesday and thursday on odd number vehical is " + total);
+        console.log("With 10% on Tuesday and thursday on odd number vechial is " + total);
       }
 
     } else if (day === 5 || day === 6 || day === 0) {
       if (newdate === "3/23" || newdate === "8/14" || newdate === "12/25") {
         Discount = 50 / 100 * totelKmTraveledRate;
         total = totelKmTraveledRate - Discount;
-        console.log("50% discount of international holiday is: " + total);
+        console.log("50% discount of internationsal holiday is: " + total);
       } else {
         total = totelKmTraveledRatef;
         console.log("Your Bill is  " + total);
@@ -182,7 +186,7 @@ function EntryPoint() {
             <input onChange={handleChange} className="form-control" name='numberPlate' type="text" placeholder='Number-Plate' />
           </div>
           <div className='mt-4 input-entry'>
-            <input onChange={handleChange} className=" form-control" name='date-time' type="datetime-local" placeholder='Date Time' />
+            <input onChange={handleChange} className=" form-control" name='dateTime' type="datetime-local" placeholder='Date Time' />
           </div>
           <div className='mt-4 d-flex flex-row-reverse '>
             <button className='btn btn-success btn-lg' onClick={() => onSubmit()} >Submit</button>
@@ -211,7 +215,7 @@ function EntryPoint() {
                 <input name='numberPlateExit' onChange={handleChange2} type="text" className="form-control" placeholder='Number-Plate' />
               </div>
               <div className='mt-4 input-exit'>
-                <input name='date-time' onChange={handleChange2} type="Date" className="form-control" placeholder='Date Time' />
+                <input name='dateTime' onChange={handleChange2} type="Date" className="form-control" placeholder='Date Time' />
               </div>
               <div className='mt-4 d-flex flex-row-reverse '>
                 <button className='btn btn-success btn-lg' onClick={() => Calculate(formValue2)} >Calculate</button>
